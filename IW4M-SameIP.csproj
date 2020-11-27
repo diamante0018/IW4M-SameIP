@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>IW4M_Plugin</RootNamespace>
+    <AssemblyName>IW4M-SameIP</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RaidMax.IW4MAdmin.SharedLibraryCore" Version="2020.11.11.1" />
+  </ItemGroup>
+
+</Project>
