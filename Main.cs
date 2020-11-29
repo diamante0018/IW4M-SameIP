@@ -13,7 +13,7 @@ namespace IW4M_Plugin
 
         public string Author => "Diavolo#6969";
 
-        public HashSet<string> IPList = new HashSet<string>(18);
+        private HashSet<string> IPList = new HashSet<string>(18);
 
         public Task OnEventAsync(GameEvent E, Server S)
         {
