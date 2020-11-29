@@ -11,28 +11,31 @@ namespace IW4M_Plugin
 
         public float Version => (float)Utilities.GetVersionAsDouble();
 
-        public string Author => "Diavolo";
+        public string Author => "Diavolo#6969";
 
-        public HashSet<string> IPList = new HashSet<string>();
+        public HashSet<string> IPList = new HashSet<string>(18);
 
         public Task OnEventAsync(GameEvent E, Server S)
         {
             if (S.GameName != Server.Game.IW5) return Task.CompletedTask;
 
-            if (E.Type == GameEvent.EventType.Join)
+            switch(E.Type)
             {
-                var origin = E.Origin;
-                if (IPList.Contains(origin.IPAddressString))
-                {
-                    var sender = Utilities.IW4MAdminClient(E.Owner);
-                    origin.Kick("Same IP, different HWID. Is the cat stepping on the keyboard?", sender);
-                }
-                else
-                    IPList.Add(origin.IPAddressString);
+                case GameEvent.EventType.Join:
+                    if (IPList.Contains(E.Origin.IPAddressString))
+                    {
+                        var sender = Utilities.IW4MAdminClient(E.Owner);
+                        E.Origin.Kick("Same IP, different HWID. Is the cat stepping on the keyboard?", sender);
+                    }
+                    else
+                        IPList.Add(E.Origin.IPAddressString);
+                    break;
+                case GameEvent.EventType.Disconnect:
+                    IPList.Remove(E.Origin.IPAddressString);
+                    break;
+                default:
+                    break;
             }
-            else if (E.Type == GameEvent.EventType.Disconnect)
-                IPList.Remove(E.Origin.IPAddressString);
-
             return Task.CompletedTask;
         }
 
